@@ -1,6 +1,9 @@
 import 'package:bmi_calculator/bmi_logic.dart';
 import 'package:flutter/material.dart';
 import 'package:bmi_calculator/modified_container.dart';
+import 'package:bmi_calculator/gender_card.dart';
+
+import 'gender_enum.dart';
 
 class InputPage extends StatefulWidget {
   @override
@@ -9,6 +12,8 @@ class InputPage extends StatefulWidget {
 
 class _InputPageState extends State<InputPage> {
   BMILogic brain = BMILogic();
+  bool isMaleSelected = false;
+  bool isFemaleSelected = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,51 +32,35 @@ class _InputPageState extends State<InputPage> {
                 child: Row(
                   children: [
                     ModifiedContainer(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Icon(
-                            Icons.male,
-                            color: Theme.of(context).iconTheme.color,
-                          ),
-                          Text(
-                            "MALE",
-                            style: Theme.of(context)
-                                .textTheme
-                                .displayMedium
-                                ?.copyWith(
-                                    color: Theme.of(context)
-                                        .textTheme
-                                        .displaySmall
-                                        ?.color),
-                          )
-                        ],
+                      child: GenderCard(
+                        isActive: isMaleSelected,
+                        icon: Icons.male,
+                        gender: 'MALE',
                       ),
+                      // Instead using bool values we can use enums
                       onPress: () {
-                        brain.setMale(true);
+                        brain.setMale(Gender.male);
+                        setState(() {
+                          isMaleSelected = true;
+                          isFemaleSelected = false;
+                        });
                       },
                     ),
                     SizedBox(
-                      width: 8,
+                      width: 12,
                     ),
                     ModifiedContainer(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Icon(
-                            Icons.female,
-                            color: IconTheme.of(context).color,
-                          ),
-                          Text(
-                            "FEMALE",
-                            style: Theme.of(context).textTheme.displayMedium,
-                          )
-                        ],
+                      child: GenderCard(
+                        isActive: isFemaleSelected,
+                        icon: Icons.female,
+                        gender: 'FEMALE',
                       ),
                       onPress: () {
-                        brain.setMale(false);
+                        brain.setMale(Gender.female);
+                        setState(() {
+                          isMaleSelected = false;
+                          isFemaleSelected = true;
+                        });
                       },
                     ),
                   ],
@@ -91,11 +80,9 @@ class _InputPageState extends State<InputPage> {
                         children: [
                           Text(
                             "HEIGHT",
-                            style: Theme.of(context).textTheme.displaySmall,
                           ),
                           Text(
                             "183",
-                            style: Theme.of(context).textTheme.displayLarge,
                           )
                         ],
                       ),
@@ -117,33 +104,30 @@ class _InputPageState extends State<InputPage> {
                         children: [
                           Text(
                             "WEIGHT",
-                            style: Theme.of(context).textTheme.displaySmall,
                           ),
                           Text(
                             "74",
-                            style: Theme.of(context).textTheme.displayLarge,
                           ),
                         ],
                       ),
                     ),
                     SizedBox(
-                      width: 8,
+                      width: 12,
                     ),
                     ModifiedContainer(
-                        onPress: () {},
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              "AGE",
-                              style: Theme.of(context).textTheme.displaySmall,
-                            ),
-                            Text(
-                              "20",
-                              style: Theme.of(context).textTheme.displayLarge,
-                            ),
-                          ],
-                        ))
+                      onPress: () {},
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            "AGE",
+                          ),
+                          Text(
+                            "20",
+                          ),
+                        ],
+                      ),
+                    )
                   ],
                 ),
               ),

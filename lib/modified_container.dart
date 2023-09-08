@@ -4,10 +4,12 @@ import 'package:flutter/material.dart';
 //Defining a new stateless widget to make the code reusable
 class ModifiedContainer extends StatelessWidget {
   final Widget child;
-  final Function() onPress;
-  final bool selected;
+  final void Function()? onPress;
+  final Color color;
   ModifiedContainer(
-      {required this.child, required this.onPress, this.selected = false});
+      {required this.child,
+      this.onPress,
+      this.color = const Color(0xFF1D1F33)});
 
   @override
   Widget build(BuildContext context) {
@@ -15,8 +17,7 @@ class ModifiedContainer extends StatelessWidget {
       child: GestureDetector(
         onTap: onPress,
         child: Container(
-          padding: EdgeInsets.symmetric(vertical: 24, horizontal: 12),
-          color: Theme.of(context).colorScheme.secondary,
+          color: color,
           child: child,
         ),
       ),
