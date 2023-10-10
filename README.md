@@ -30,3 +30,5 @@ The BMI Calculator App is a beginner-friendly Flutter project designed to calcul
 - Calculate BMI using user-provided height and weight.
 - Display the calculated BMI with an easy-to-understand interpretation.
 - Flutter-based UI for smooth performance and responsiveness.
+
+[Aiming to this design](https://dribbble.com/shots/4585382/attachments/1036694?mode=media)

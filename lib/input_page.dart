@@ -1,4 +1,5 @@
 import 'package:bmi_calculator/bmi_logic.dart';
+import 'package:bmi_calculator/colors_const.dart';
 import 'package:flutter/material.dart';
 import 'package:bmi_calculator/modified_container.dart';
 import 'gender_enum.dart';
@@ -10,7 +11,7 @@ class InputPage extends StatefulWidget {
 
 class _InputPageState extends State<InputPage> {
   BMILogic brain =
-      BMILogic(height: 10, age: 20, gender: Gender.male, weight: 70);
+      BMILogic(height: 10.0, age: 20, gender: Gender.male, weight: 70);
 
   @override
   Widget build(BuildContext context) {
@@ -32,14 +33,24 @@ class _InputPageState extends State<InputPage> {
                     // Male
                     ModifiedContainer(
                       color: brain.gender == Gender.male
-                          ? Color(0xFF1D1F33)
-                          : Color(0xFF0a0e21),
-                      child: Column(
-                        children: [
-                          Icon(Icons.male),
-                          Text("MALE"),
-                        ],
-                      ),
+                          ? kSecondaryColor
+                          : kPrimaryColor,
+                      children: [
+                        Icon(
+                          Icons.male,
+                          color: brain.gender == Gender.male
+                              ? Colors.white
+                              : kUnfocusedColor,
+                        ),
+                        Text(
+                          "MALE",
+                          style: TextStyle(
+                            color: brain.gender == Gender.male
+                                ? Colors.white
+                                : kUnfocusedColor,
+                          ),
+                        ),
+                      ],
                       // Instead using bool values we can use enums
                       onPress: () {
                         setState(() {
@@ -53,14 +64,24 @@ class _InputPageState extends State<InputPage> {
                     // Female
                     ModifiedContainer(
                       color: brain.gender == Gender.female
-                          ? Color(0xFF1D1F33)
-                          : Color(0xFF0a0e21),
-                      child: Column(
-                        children: [
-                          Icon(Icons.female),
-                          Text("FEMALE"),
-                        ],
-                      ),
+                          ? kSecondaryColor
+                          : kPrimaryColor,
+                      children: [
+                        Icon(
+                          Icons.female,
+                          color: brain.gender == Gender.female
+                              ? Colors.white
+                              : kUnfocusedColor,
+                        ),
+                        Text(
+                          "FEMALE",
+                          style: TextStyle(
+                            color: brain.gender == Gender.female
+                                ? Colors.white
+                                : kUnfocusedColor,
+                          ),
+                        ),
+                      ],
                       onPress: () {
                         setState(() {
                           brain.gender = Gender.female;
@@ -79,23 +100,25 @@ class _InputPageState extends State<InputPage> {
                 child: Row(
                   children: [
                     ModifiedContainer(
-                      child: Column(
-                        children: [
-                          Text(
-                            "HEIGHT",
-                          ),
-                          Slider(
-                              value: 0.0,
-                              onChanged: (value) {
-                                // setState(() {
-                                //   brain.height = value as int;
-                                // });
-                              }),
-                          Text(
-                            brain.height.toString(),
-                          )
-                        ],
-                      ),
+                      children: [
+                        Text(
+                          "HEIGHT",
+                        ),
+                        Slider(
+                          activeColor: Colors.white,
+                          inactiveColor: kPrimaryColor,
+                          value: brain.height,
+                          onChanged: (double height) {
+                            setState(() {
+                              brain.height = height;
+                            });
+                          },
+                          max: 270.0,
+                        ),
+                        Text(
+                          brain.height.toStringAsFixed(2),
+                        ),
+                      ],
                     ),
                   ],
                 ),
@@ -109,33 +132,29 @@ class _InputPageState extends State<InputPage> {
                   children: [
                     ModifiedContainer(
                       onPress: () {},
-                      child: Column(
-                        children: [
-                          Text(
-                            "WEIGHT",
-                          ),
-                          Text(
-                            "74",
-                          ),
-                        ],
-                      ),
+                      children: [
+                        Text(
+                          "WEIGHT",
+                        ),
+                        Text(
+                          "74",
+                        ),
+                      ],
                     ),
                     SizedBox(
                       width: 12,
                     ),
                     ModifiedContainer(
                       onPress: () {},
-                      child: Column(
-                        children: [
-                          Text(
-                            "AGE",
-                          ),
-                          Text(
-                            "20",
-                          ),
-                        ],
-                      ),
-                    )
+                      children: [
+                        Text(
+                          "AGE",
+                        ),
+                        Text(
+                          "20",
+                        ),
+                      ],
+                    ),
                   ],
                 ),
               ),

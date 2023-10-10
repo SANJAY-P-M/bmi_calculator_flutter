@@ -2,7 +2,7 @@ import 'gender_enum.dart';
 
 class BMILogic {
   Gender gender;
-  int height;
+  double height;
   int weight;
   int age;
   BMILogic(
