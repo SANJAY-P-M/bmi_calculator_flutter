@@ -1,8 +1,6 @@
 import 'package:bmi_calculator/bmi_logic.dart';
 import 'package:flutter/material.dart';
 import 'package:bmi_calculator/modified_container.dart';
-import 'package:bmi_calculator/gender_card.dart';
-
 import 'gender_enum.dart';
 
 class InputPage extends StatefulWidget {
@@ -11,9 +9,9 @@ class InputPage extends StatefulWidget {
 }
 
 class _InputPageState extends State<InputPage> {
-  BMILogic brain = BMILogic();
-  bool isMaleSelected = false;
-  bool isFemaleSelected = false;
+  BMILogic brain =
+      BMILogic(height: 10, age: 20, gender: Gender.male, weight: 70);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,35 +29,41 @@ class _InputPageState extends State<InputPage> {
               Expanded(
                 child: Row(
                   children: [
+                    // Male
                     ModifiedContainer(
-                      child: GenderCard(
-                        isActive: isMaleSelected,
-                        icon: Icons.male,
-                        gender: 'MALE',
+                      color: brain.gender == Gender.male
+                          ? Color(0xFF1D1F33)
+                          : Color(0xFF0a0e21),
+                      child: Column(
+                        children: [
+                          Icon(Icons.male),
+                          Text("MALE"),
+                        ],
                       ),
                       // Instead using bool values we can use enums
                       onPress: () {
-                        brain.setMale(Gender.male);
                         setState(() {
-                          isMaleSelected = true;
-                          isFemaleSelected = false;
+                          brain.gender = Gender.male;
                         });
                       },
                     ),
                     SizedBox(
                       width: 12,
                     ),
+                    // Female
                     ModifiedContainer(
-                      child: GenderCard(
-                        isActive: isFemaleSelected,
-                        icon: Icons.female,
-                        gender: 'FEMALE',
+                      color: brain.gender == Gender.female
+                          ? Color(0xFF1D1F33)
+                          : Color(0xFF0a0e21),
+                      child: Column(
+                        children: [
+                          Icon(Icons.female),
+                          Text("FEMALE"),
+                        ],
                       ),
                       onPress: () {
-                        brain.setMale(Gender.female);
                         setState(() {
-                          isMaleSelected = false;
-                          isFemaleSelected = true;
+                          brain.gender = Gender.female;
                         });
                       },
                     ),
@@ -70,19 +74,25 @@ class _InputPageState extends State<InputPage> {
                 height: 12,
               ),
               // Second Row
+              // Height
               Expanded(
                 child: Row(
                   children: [
                     ModifiedContainer(
-                      onPress: () {},
                       child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
                             "HEIGHT",
                           ),
+                          Slider(
+                              value: 0.0,
+                              onChanged: (value) {
+                                // setState(() {
+                                //   brain.height = value as int;
+                                // });
+                              }),
                           Text(
-                            "183",
+                            brain.height.toString(),
                           )
                         ],
                       ),
@@ -100,7 +110,6 @@ class _InputPageState extends State<InputPage> {
                     ModifiedContainer(
                       onPress: () {},
                       child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
                             "WEIGHT",
@@ -117,7 +126,6 @@ class _InputPageState extends State<InputPage> {
                     ModifiedContainer(
                       onPress: () {},
                       child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
                             "AGE",
